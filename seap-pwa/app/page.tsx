@@ -14,24 +14,37 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Backend URL - schimba cu URL-ul Render dupa deploy
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+  
   const fetchData = async () => {
     setLoading(true);
     setError(null);
     try {
-      // Fetch direct din GitHub Gist (bypasses Netlify cache)
-      const GIST_URL = 'https://gist.githubusercontent.com/AlexxG24/916c4f36e09196cd4e83e8e3bafe947a/raw/seap_data.json';
-      const res = await fetch(`${GIST_URL}?t=${Date.now()}`, {
-        cache: 'no-store',
-        headers: { 'Cache-Control': 'no-cache' }
+      const res = await fetch(`${BACKEND_URL}/api/scrape`, {
+        cache: 'no-store'
       });
       if (res.ok) {
         const json = await res.json();
-        setData(json);
+        if (json.success) {
+          setData(json.data);
+        } else {
+          setError(json.error || 'Eroare la scraping');
+        }
       } else {
-        setError('Eroare la încărcarea datelor');
+        setError('Eroare la conectare cu backend-ul');
       }
     } catch (err) {
-      setError('Eroare la conectare');
+      // Fallback: try Gist if backend is down
+      try {
+        const GIST_URL = 'https://gist.githubusercontent.com/AlexxG24/916c4f36e09196cd4e83e8e3bafe947a/raw/seap_data.json';
+        const gistRes = await fetch(`${GIST_URL}?t=${Date.now()}`);
+        if (gistRes.ok) {
+          setData(await gistRes.json());
+        }
+      } catch {
+        setError('Backend offline. Pornește serverul Python.');
+      }
     } finally {
       setLoading(false);
     }
