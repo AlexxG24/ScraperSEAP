@@ -1,31 +1,29 @@
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
 
-// Citeste datele din fisierul JSON (din public folder pentru Netlify)
+// GitHub Gist URL pentru date live
+const GIST_RAW_URL = 'https://gist.githubusercontent.com/AlexxG24/916c4f36e09196cd4e83e8e3bafe947a/raw/seap_data.json';
+
+// Citeste datele din GitHub Gist (live, dinamic)
 async function readSeapData() {
   try {
-    // Prima incercare: public folder (pentru Netlify)
-    const publicPath = path.join(process.cwd(), 'public', 'seap_data.json');
-    const data = await fs.readFile(publicPath, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    try {
-      // A doua incercare: folder parinte (pentru development local)
-      const parentPath = path.join(process.cwd(), '..', 'seap_data.json');
-      const data = await fs.readFile(parentPath, 'utf-8');
-      return JSON.parse(data);
-    } catch {
-      // Daca fisierul nu exista, returneaza date default
-      const today = new Date();
-      return {
-        date: today.toLocaleDateString('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-        todayCount: 0,
-        totalInSystem: 0,
-        lastUpdate: today.toISOString(),
-        note: 'Ruleaza scriptul Python pentru a actualiza datele'
-      };
+    // Fetch din GitHub Gist cu cache bust
+    const response = await fetch(`${GIST_RAW_URL}?t=${Date.now()}`, {
+      cache: 'no-store'
+    });
+    if (response.ok) {
+      return await response.json();
     }
+    throw new Error('Gist fetch failed');
+  } catch {
+    // Daca fetch-ul esueaza, returneaza date default
+    const today = new Date();
+    return {
+      date: today.toLocaleDateString('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+      todayCount: 0,
+      totalInSystem: 0,
+      lastUpdate: today.toISOString(),
+      note: 'Eroare la obtinerea datelor din Gist'
+    };
   }
 }
 
@@ -47,23 +45,4 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
-  // Endpoint pentru a primi date de la scriptul Python
-  try {
-    const body = await request.json();
-    
-    // Salveaza datele in fisier
-    const filePath = path.join(process.cwd(), '..', 'seap_data.json');
-    await fs.writeFile(filePath, JSON.stringify(body, null, 2), 'utf-8');
-    
-    return NextResponse.json({
-      success: true,
-      saved: true
-    });
-  } catch (error) {
-    return NextResponse.json({
-      success: false,
-      error: 'Eroare la salvarea datelor'
-    }, { status: 500 });
-  }
-}
+// POST nu mai e necesar - datele vin din GitHub Gist

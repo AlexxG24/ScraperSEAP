@@ -286,6 +286,15 @@ def get_daily_auctions():
             json.dump(result, f, ensure_ascii=False, indent=2)
         print(f"\n[INFO] Date salvate in: seap_data.json")
         
+        # Update GitHub Gist pentru PWA live
+        import subprocess
+        try:
+            subprocess.run(['gh', 'gist', 'edit', '916c4f36e09196cd4e83e8e3bafe947a', '-f', 'seap_data.json'], 
+                          capture_output=True, text=True, cwd=r'c:\Users\alexa\Downloads\ScraperSEAP')
+            print(f"[INFO] Gist actualizat - PWA va afisa datele noi!")
+        except Exception as gist_err:
+            print(f"[WARN] Nu am putut actualiza Gist: {gist_err}")
+        
         # Salveaza si in log
         log_file = f'seap_log_{today_file}.txt'
         with open(log_file, 'a', encoding='utf-8') as f:
