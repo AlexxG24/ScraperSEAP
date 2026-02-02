@@ -18,12 +18,17 @@ export default function Home() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/scrape');
-      const json = await res.json();
-      if (json.success) {
-        setData(json.data);
+      // Fetch direct din GitHub Gist (bypasses Netlify cache)
+      const GIST_URL = 'https://gist.githubusercontent.com/AlexxG24/916c4f36e09196cd4e83e8e3bafe947a/raw/seap_data.json';
+      const res = await fetch(`${GIST_URL}?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
+      if (res.ok) {
+        const json = await res.json();
+        setData(json);
       } else {
-        setError(json.error);
+        setError('Eroare la încărcarea datelor');
       }
     } catch (err) {
       setError('Eroare la conectare');
