@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+
+# Node.js
+node_modules/
+.next/
+out/
+.vercel
+
+# Logs
+*.log
+seap_log_*.txt
+
+# Screenshots (debug)
+*.png
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.local
+.env*.local
