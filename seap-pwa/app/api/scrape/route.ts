@@ -2,22 +2,30 @@ import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-// Citeste datele din fisierul JSON generat de scriptul Python
+// Citeste datele din fisierul JSON (din public folder pentru Netlify)
 async function readSeapData() {
   try {
-    const filePath = path.join(process.cwd(), '..', 'seap_data.json');
-    const data = await fs.readFile(filePath, 'utf-8');
+    // Prima incercare: public folder (pentru Netlify)
+    const publicPath = path.join(process.cwd(), 'public', 'seap_data.json');
+    const data = await fs.readFile(publicPath, 'utf-8');
     return JSON.parse(data);
-  } catch (error) {
-    // Daca fisierul nu exista, returneaza date default
-    const today = new Date();
-    return {
-      date: today.toLocaleDateString('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-      todayCount: 0,
-      totalInSystem: 0,
-      lastUpdate: today.toISOString(),
-      note: 'Ruleaza scriptul Python pentru a actualiza datele'
-    };
+  } catch {
+    try {
+      // A doua incercare: folder parinte (pentru development local)
+      const parentPath = path.join(process.cwd(), '..', 'seap_data.json');
+      const data = await fs.readFile(parentPath, 'utf-8');
+      return JSON.parse(data);
+    } catch {
+      // Daca fisierul nu exista, returneaza date default
+      const today = new Date();
+      return {
+        date: today.toLocaleDateString('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+        todayCount: 0,
+        totalInSystem: 0,
+        lastUpdate: today.toISOString(),
+        note: 'Ruleaza scriptul Python pentru a actualiza datele'
+      };
+    }
   }
 }
 
