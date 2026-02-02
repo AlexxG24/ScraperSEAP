@@ -1,0 +1,38 @@
+name: SEAP Scraper
+
+on:
+  schedule:
+    # Ruleaza la fiecare ora, luni-vineri, 8:00-18:00 (ora Romaniei = UTC+2)
+    - cron: '0 6-16 * * 1-5'
+  workflow_dispatch:  # Permite rulare manuala din GitHub
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      
+      - name: Install dependencies
+        run: |
+          pip install selenium webdriver-manager
+      
+      - name: Run scraper
+        run: python seap_scraper.py
+      
+      - name: Update Gist
+        env:
+          GH_TOKEN: ${{ secrets.GIST_TOKEN }}
+        run: |
+          gh api --method PATCH /gists/916c4f36e09196cd4e83e8e3bafe947a \
+            -f "files[seap_data.json][content]=$(cat seap_data.json)"
