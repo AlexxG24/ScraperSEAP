@@ -14,28 +14,47 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Backend URL - schimba cu URL-ul Render dupa deploy
-  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+  const FIRECRAWL_API_KEY = 'fc-3d6cd173506e48d5a99e3c1b189af34d';
+  const SEAP_URL = 'https://www.e-licitatie.ro/pub/notices/contract-notices/list/0/0';
   
   const fetchData = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/scrape`, {
-        cache: 'no-store'
+      // Apelam Firecrawl API direct
+      const res = await fetch('https://api.firecrawl.dev/v1/scrape', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${FIRECRAWL_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          url: SEAP_URL,
+          formats: ['markdown'],
+          waitFor: 5000
+        })
       });
+      
       if (res.ok) {
         const json = await res.json();
-        if (json.success) {
-          setData(json.data);
-        } else {
-          setError(json.error || 'Eroare la scraping');
-        }
+        const content = json.data?.markdown || '';
+        
+        // Extrage numarul din "dintr-un total de: X"
+        const match = content.toLowerCase().match(/dintr-un\s+total\s+de[:\s]+(\d[\d\.,]*)/);
+        const total = match ? parseInt(match[1].replace(/\./g, '').replace(',', '')) : 0;
+        
+        const today = new Date();
+        setData({
+          date: today.toLocaleDateString('ro-RO'),
+          todayCount: total,
+          totalInSystem: total,
+          lastUpdate: today.toISOString()
+        });
       } else {
-        setError('Eroare la conectare cu backend-ul');
+        throw new Error('Firecrawl error');
       }
     } catch (err) {
-      // Fallback: try Gist if backend is down
+      // Fallback: citeste din Gist
       try {
         const GIST_URL = 'https://gist.githubusercontent.com/AlexxG24/916c4f36e09196cd4e83e8e3bafe947a/raw/seap_data.json';
         const gistRes = await fetch(`${GIST_URL}?t=${Date.now()}`);
@@ -43,7 +62,7 @@ export default function Home() {
           setData(await gistRes.json());
         }
       } catch {
-        setError('Backend offline. Pornește serverul Python.');
+        setError('Eroare la încărcare. Reîncearcă.');
       }
     } finally {
       setLoading(false);
