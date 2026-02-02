@@ -274,17 +274,39 @@ def get_daily_auctions():
         print(f"  Total in sistem: {total_licitatii}")
         print(f"{'='*50}")
         
-        # Salveaza in fisier JSON pentru PWA
+        # Salveaza in fisier JSON pentru PWA (cu istoric zilnic)
+        # Citeste istoricul existent
+        try:
+            with open('seap_data.json', 'r', encoding='utf-8') as f:
+                existing = json.load(f)
+                history = existing.get('history', [])
+                total_all_time = existing.get('totalAllTime', 0)
+        except:
+            history = []
+            total_all_time = 0
+        
+        # Verifica daca ziua curenta exista deja in istoric
+        today_entry = next((h for h in history if h['date'] == today), None)
+        if today_entry:
+            # Actualizeaza intrarea existenta
+            today_entry['count'] = licitatii_azi
+        else:
+            # Adauga ziua noua si incrementeaza totalul
+            history.append({"date": today, "count": licitatii_azi})
+            total_all_time += licitatii_azi
+        
+        # Pastreaza doar ultimele 30 zile
+        history = history[-30:]
+        
         result = {
-            "date": today,
-            "todayCount": licitatii_azi,
-            "totalInSystem": total_licitatii,
+            "history": history,
+            "totalAllTime": total_all_time,
             "lastUpdate": datetime.now().isoformat()
         }
         
         with open('seap_data.json', 'w', encoding='utf-8') as f:
             json.dump(result, f, ensure_ascii=False, indent=2)
-        print(f"\n[INFO] Date salvate in: seap_data.json")
+        print(f"\n[INFO] Date salvate in: seap_data.json (Total all-time: {total_all_time})")
         
         # Update GitHub Gist pentru PWA live (folosind gh api - nu se blocheaza)
         import subprocess

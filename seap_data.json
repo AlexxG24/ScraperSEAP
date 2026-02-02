@@ -1,6 +1,7 @@
 {
-  "date": "02.02.2026",
-  "todayCount": 17,
-  "totalInSystem": 17,
+  "history": [
+    {"date": "02.02.2026", "count": 17}
+  ],
+  "totalAllTime": 17,
   "lastUpdate": "2026-02-02T17:55:31.309332"
 }

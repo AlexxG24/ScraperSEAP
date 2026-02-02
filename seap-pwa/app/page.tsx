@@ -2,10 +2,14 @@
 
 import { useState, useEffect } from 'react';
 
-interface SeapData {
+interface DayEntry {
   date: string;
-  todayCount: number;
-  totalInSystem: number;
+  count: number;
+}
+
+interface SeapData {
+  history: DayEntry[];
+  totalAllTime: number;
   lastUpdate: string;
 }
 
@@ -83,67 +87,65 @@ export default function Home() {
             ) : data && (
               <>
                 {/* Today's Count - Big Number */}
-                <div className="text-center mb-8">
-                  <p className="text-blue-200 text-sm uppercase tracking-wider mb-2">Licitații Construcții Azi</p>
-                  <div className="text-8xl font-bold text-white mb-2">{data.todayCount}</div>
-                  <p className="text-blue-300 text-lg">{data.date}</p>
+                <div className="text-center mb-6">
+                  <p className="text-blue-200 text-sm uppercase tracking-wider mb-2">Licitații Azi</p>
+                  <div className="text-7xl font-bold text-white mb-2">
+                    {data.history.length > 0 ? data.history[data.history.length - 1].count : 0}
+                  </div>
+                  <p className="text-blue-300 text-lg">
+                    {data.history.length > 0 ? data.history[data.history.length - 1].date : '-'}
+                  </p>
                 </div>
 
-                {/* Divider */}
-                <div className="border-t border-white/20 my-6"></div>
+                {/* Total All Time */}
+                <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-2xl p-4 text-center mb-6 border border-green-400/30">
+                  <p className="text-green-300 text-xs uppercase tracking-wider mb-1">Total Toate Zilele</p>
+                  <p className="text-4xl font-bold text-white">{data.totalAllTime.toLocaleString()}</p>
+                </div>
+
+                {/* Daily History */}
+                <div className="mb-6">
+                  <p className="text-blue-200 text-xs uppercase tracking-wider mb-3">Istoric Zilnic</p>
+                  <div className="bg-white/5 rounded-2xl p-3 max-h-48 overflow-y-auto">
+                    {data.history.slice().reverse().map((day, idx) => (
+                      <div key={idx} className="flex justify-between items-center py-2 border-b border-white/10 last:border-0">
+                        <span className="text-blue-200">{day.date}</span>
+                        <span className="text-white font-semibold">{day.count} licitații</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-white/5 rounded-2xl p-4 text-center">
-                    <p className="text-blue-300 text-xs uppercase tracking-wider mb-1">Total în Sistem</p>
-                    <p className="text-2xl font-semibold text-white">{data.totalInSystem.toLocaleString()}</p>
-                  </div>
-                  <div className="bg-white/5 rounded-2xl p-4 text-center">
-                    <p className="text-blue-300 text-xs uppercase tracking-wider mb-1">Ultima Actualizare</p>
-                    <p className="text-lg font-semibold text-white">
-                      {new Date(data.lastUpdate).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' })}
-                    </p>
-                  </div>
+                <div className="bg-white/5 rounded-2xl p-4 text-center mb-6">
+                  <p className="text-blue-300 text-xs uppercase tracking-wider mb-1">Ultima Actualizare</p>
+                  <p className="text-lg font-semibold text-white">
+                    {new Date(data.lastUpdate).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' })}
+                  </p>
                 </div>
 
-                {/* Manual Input */}
-                <div className="mb-4">
-                  <label className="text-blue-200 text-xs uppercase tracking-wider mb-2 block">Actualizare manuală:</label>
-                  <div className="flex gap-2">
-                    <input 
-                      type="number" 
-                      placeholder="Nr. licitații azi"
-                      className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:border-blue-400"
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value);
-                        if (!isNaN(val) && data) {
-                          setData({...data, todayCount: val, lastUpdate: new Date().toISOString()});
-                        }
-                      }}
-                    />
-                    <button 
-                      onClick={fetchData}
-                      className="px-4 py-3 bg-white/20 hover:bg-white/30 rounded-xl text-white transition-all"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                      </svg>
-                    </button>
-                  </div>
+                {/* Refresh + SEAP Link */}
+                <div className="flex gap-3">
+                  <button 
+                    onClick={fetchData}
+                    className="px-4 py-4 bg-white/20 hover:bg-white/30 rounded-2xl text-white transition-all"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </button>
+                  <a 
+                    href="https://www.e-licitatie.ro/pub/notices/contract-notices/list/0/0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 rounded-2xl text-white font-semibold transition-all flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Deschide SEAP
+                  </a>
                 </div>
-
-                {/* SEAP Link */}
-                <a 
-                  href="https://www.e-licitatie.ro/pub/notices/contract-notices/list/0/0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-4 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 rounded-2xl text-white font-semibold transition-all flex items-center justify-center gap-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  Deschide SEAP
-                </a>
               </>
             )}
           </div>
