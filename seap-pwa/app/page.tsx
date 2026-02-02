@@ -117,35 +117,30 @@ export default function Home() {
                 </div>
 
                 {/* Stats */}
-                <div className="bg-white/5 rounded-2xl p-4 text-center mb-6">
+                <div className="bg-white/5 rounded-2xl p-4 text-center mb-4">
                   <p className="text-blue-300 text-xs uppercase tracking-wider mb-1">Ultima Actualizare</p>
                   <p className="text-lg font-semibold text-white">
                     {new Date(data.lastUpdate).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
 
-                {/* Refresh + SEAP Link */}
-                <div className="flex gap-3">
-                  <button 
-                    onClick={fetchData}
-                    className="px-4 py-4 bg-white/20 hover:bg-white/30 rounded-2xl text-white transition-all"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                  </button>
-                  <a 
-                    href="https://www.e-licitatie.ro/pub/notices/contract-notices/list/0/0"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 rounded-2xl text-white font-semibold transition-all flex items-center justify-center gap-2"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    Deschide SEAP
-                  </a>
-                </div>
+                {/* Auto-update note */}
+                <p className="text-blue-300/70 text-xs text-center mb-4">
+                  Datele se actualizează automat la fiecare oră (Luni-Vineri, 8:00-18:00)
+                </p>
+
+                {/* SEAP Link */}
+                <a 
+                  href="https://www.e-licitatie.ro/pub/notices/contract-notices/list/0/0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 rounded-2xl text-white font-semibold transition-all flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Deschide SEAP
+                </a>
               </>
             )}
           </div>
