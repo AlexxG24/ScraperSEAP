@@ -36,7 +36,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
+          echo "=== seap_data.json content ==="
           cat seap_data.json
-          gh api --method PATCH /gists/916c4f36e09196cd4e83e8e3bafe947a \
-            --input seap_data.json \
-            -f "files[seap_data.json][content]=$(cat seap_data.json | jq -Rs .)"
+          echo ""
+          echo "=== Updating Gist ==="
+          CONTENT=$(cat seap_data.json)
+          gh gist edit 916c4f36e09196cd4e83e8e3bafe947a -f seap_data.json seap_data.json
