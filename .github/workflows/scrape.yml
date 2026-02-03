@@ -28,11 +28,15 @@ jobs:
           pip install selenium webdriver-manager
       
       - name: Run scraper
+        env:
+          CI: true
         run: python seap_scraper.py
       
       - name: Update Gist
         env:
           GH_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
+          cat seap_data.json
           gh api --method PATCH /gists/916c4f36e09196cd4e83e8e3bafe947a \
-            -f "files[seap_data.json][content]=$(cat seap_data.json)"
+            --input seap_data.json \
+            -f "files[seap_data.json][content]=$(cat seap_data.json | jq -Rs .)"
