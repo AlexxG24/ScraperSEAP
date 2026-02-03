@@ -253,8 +253,12 @@ def get_daily_auctions():
         
         try:
             # Cauta in zona de paginare
-            paginare_elem = driver.find_element(By.CSS_SELECTOR, '#container-sizing .u-items-list__content')
             paginare_text = driver.find_element(By.TAG_NAME, 'body').text
+            
+            # Debug: salveaza textul paginii
+            with open('page_text.txt', 'w', encoding='utf-8') as f:
+                f.write(paginare_text)
+            print(f"  [DEBUG] Text pagina salvat in page_text.txt")
             
             # Extrage numarul din "dintr-un total de: X"
             match = re.search(r'dintr-un\s+total\s+de[:\s]+(\d[\d\.,]*)', paginare_text.lower())
@@ -263,11 +267,18 @@ def get_daily_auctions():
                 total_licitatii = int(num_str)
                 print(f"  [INFO] Total licitatii filtrate: {total_licitatii}")
             else:
-                # Fallback: cauta pattern alternativ
-                match = re.search(r'total\s+de[:\s]+(\d[\d\.,]*)', paginare_text.lower())
-                if match:
-                    num_str = match.group(1).replace('.', '').replace(',', '')
-                    total_licitatii = int(num_str)
+                # Fallback 1: numara codurile SCN cu data de azi
+                today_pattern = today.replace('.', r'\.')
+                scn_matches = re.findall(rf'SCN\d+\s*\n\s*{today_pattern}', paginare_text)
+                if scn_matches:
+                    total_licitatii = len(scn_matches)
+                    print(f"  [INFO] Numar licitatii gasite cu SCN + data azi: {total_licitatii}")
+                else:
+                    # Fallback 2: numara aparitiile datei de azi in format HH:MM
+                    date_time_matches = re.findall(rf'{today_pattern}\s+\d{{2}}:\d{{2}}', paginare_text)
+                    if date_time_matches:
+                        total_licitatii = len(date_time_matches)
+                        print(f"  [INFO] Numar licitatii gasite cu data+ora: {total_licitatii}")
         except Exception as e:
             print(f"  [DEBUG] Eroare la extragere total: {e}")
         
