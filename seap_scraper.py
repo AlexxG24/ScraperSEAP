@@ -165,40 +165,49 @@ def get_daily_auctions(target_date=None):
             except Exception as e:
                 print(f"      [WARN] Eroare domeniu: {e}")
             
-            # 3. DATA PUBLICARE: de la data de azi (setez direct via Kendo API)
-            print(f"  [3] Setez Data publicare = azi ({today})...")
+            # 3. DATA PUBLICARE: setez AMBELE campuri (De la + Pana la) = data tinta
+            print(f"  [3] Setez Data publicare = {today} (De la + Pana la)...")
             try:
-                # Folosesc Kendo API pentru a seta data direct
+                # Parsez data tinta pentru JavaScript
+                day, month, year = today.split('.')
+                
+                # Folosesc Kendo API pentru a seta AMBELE datepickere
                 result = driver.execute_script(f"""
+                    var targetDate = new Date({year}, {int(month)-1}, {int(day)});
                     var labels = document.querySelectorAll('label');
+                    var set = 0;
                     for (var i = 0; i < labels.length; i++) {{
                         if (labels[i].innerText.toLowerCase().includes('data publicare')) {{
                             var parent = labels[i].closest('.col-md-3');
                             if (parent) {{
-                                var input = parent.querySelector('input[data-role="datepicker"]');
-                                if (input) {{
-                                    var widget = $(input).data('kendoDatePicker');
+                                // Gaseste TOATE datepickerele din acest grup
+                                var inputs = parent.querySelectorAll('input[data-role="datepicker"]');
+                                for (var j = 0; j < inputs.length; j++) {{
+                                    var widget = $(inputs[j]).data('kendoDatePicker');
                                     if (widget) {{
-                                        widget.value(new Date());
+                                        widget.value(targetDate);
                                         widget.trigger('change');
-                                        return 'kendo';
+                                        set++;
                                     }}
                                 }}
-                                // Fallback: seteaza direct in input
-                                var inputField = parent.querySelector('input.k-input');
-                                if (inputField) {{
-                                    inputField.value = '{today}';
-                                    inputField.dispatchEvent(new Event('input', {{ bubbles: true }}));
-                                    inputField.dispatchEvent(new Event('change', {{ bubbles: true }}));
-                                    return 'input';
+                                // Fallback: seteaza direct in inputuri
+                                if (set === 0) {{
+                                    var inputFields = parent.querySelectorAll('input.k-input');
+                                    for (var j = 0; j < inputFields.length; j++) {{
+                                        inputFields[j].value = '{today}';
+                                        inputFields[j].dispatchEvent(new Event('input', {{ bubbles: true }}));
+                                        inputFields[j].dispatchEvent(new Event('change', {{ bubbles: true }}));
+                                        set++;
+                                    }}
                                 }}
+                                return set;
                             }}
                         }}
                     }}
-                    return null;
+                    return 0;
                 """)
-                if result:
-                    print(f"      [OK] Data publicare setata via {result}")
+                if result and result > 0:
+                    print(f"      [OK] Data publicare setata ({result} campuri)")
                 else:
                     print(f"      [WARN] Nu am gasit datepicker pentru Data publicare")
                 random_delay(1, 1.5)
