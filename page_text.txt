@@ -41,74 +41,74 @@ NUMAR ANUNT
 DATA PUBLICARE
 DENUMIRE CONTRACT
 VALOARE ESTIMATA
-SCN1172332
-10.02.2026 21:43
-Execuție lucrări pentru obiectivul „Instalare capacitate de producere a energiei din surse solare pentru autoconsumul comunei Eșelnița”
+SCN1172176
+04.02.2026 22:30
+CENTRALĂ ELECTRICĂ FOTOVOLTAICĂ GA ORAȘU NOU Număr de identificare: FM-CEF-GA-ON-CL1
 Tip procedura: Procedura simplificata
 Tipul contractului: Lucrari
 Stare procedura: In desfasurare
 Modalitate de desfasurare: ONLINE
 Modalitatea de atribuire: Contract de achizitii publice
-CPV: 45251100-2 - Lucrari de constructii de centrale electrice (Rev.2)
-Autoritate contractanta: 4337301 - COMUNA ESELNITA (PRIMARIA COMUNEI ESELNITA)
-Data limita depunere: 27.02.2026 15:00
-1.420.107,82  RON
+CPV: 45261215-4 - Lucrari de acoperire cu panouri solare (Rev.2)
+Autoritate contractanta: RO16844952 - APASERV SATU MARE S.A.
+Data limita depunere: 26.02.2026 15:00
+365.431,00  RON
 [VEZI PROCEDURA]
-SCN1172331
-10.02.2026 17:36
-MODERNIZAREA INFRASTRUCTURII RUTIERE DIN COMUNA VALEA MARE, JUD. COVASNA
+SCN1172175
+04.02.2026 21:48
+DR28 CREAREA/MODERNIZAREA INFRASTRUCTURII RUTIERE DE BAZA DIN SPATIUL RURAL DIN COMUNA ULMENI, CALARASI
 Tip procedura: Procedura simplificata
 Tipul contractului: Lucrari
 Stare procedura: In desfasurare
 Modalitate de desfasurare: ONLINE
 Modalitatea de atribuire: Contract de achizitii publice
 CPV: 45233140-2 - Lucrari de drumuri (Rev.2)
-Autoritate contractanta: 12126500 - COMUNA VALEA MARE
-Data limita depunere: 26.02.2026 15:00
-11.077.011,59  RON
+Autoritate contractanta: 3796691 - Comuna Ulmeni
+Data limita depunere: 20.02.2026 15:00
+3.934.671,30  RON
 [VEZI PROCEDURA]
-SCN1172328
-10.02.2026 16:45
-Executie lucrari pentru investitia: “Dezvoltarea sistemului de management local prin implementarea unor infrastructuri inteligente la nivelul Comunei Comarna, Județul Iasi” (lot 1) si Platforma de guvernare locala si aplicatie dedicata (lot 2)
+SCN1172174
+04.02.2026 19:37
+“CONSTRUIRE GRĂDINIŢĂ ȊN REGIM P+1E”
 Tip procedura: Procedura simplificata
 Tipul contractului: Lucrari
 Stare procedura: In desfasurare
 Modalitate de desfasurare: ONLINE
 Modalitatea de atribuire: Contract de achizitii publice
-CPV: 45233292-2 - Instalare de dispozitive de securitate (Rev.2)
-Autoritate contractanta: 4540640 - COMUNA COMARNA (PRIMARIA COMUNEI COMARNA)
-Data limita depunere: 26.02.2026 15:00
-1.058.000,00  RON
+CPV: 45210000-2 - Lucrari de constructii de cladiri (Rev.2)
+Autoritate contractanta: 5390656 - COMUNA SINANDREI (PRIMARIA COMUNEI SINANDREI, JUD. TIMIS)
+Data limita depunere: 20.02.2026 15:00
+3.643.200,00  RON
 [VEZI PROCEDURA]
-SCN1172327
-10.02.2026 16:36
-RENOVAREA ENERGETICĂ A CLĂDIRILOR REZIDENȚIALE MULTIFAMILIALE DIN ORAȘUL INEU LOT 1 - Strada Republicii nr. 49, Strada Decebal 56, nr. 1 - Strada Republicii bl. 14, sc. A, B, C, D, Strada Republicii nr. 62-64, sc. A și sc. B, Localitatea Ineu, Județul Arad (3 loturi)
+CN1089543
+04.02.2026 17:04
+Proiectare și execuție de lucrări în cadrul proiectului „Centrul de îngrijiri paliative al Spitalului Clinic de Urgență „Prof. Dr. Agrippa Ionescu””
+Tip procedura: Licitatie deschisa
+Tipul contractului: Lucrari
+Stare procedura: In desfasurare
+Modalitate de desfasurare: ONLINE
+Modalitatea de atribuire: Contract de achizitii publice
+CPV: 45000000-7 - Lucrari de constructii (Rev.2)
+Autoritate contractanta: 13624359 - UM 0929 Bucuresti
+Data limita depunere: 16.03.2026 15:00
+18.170.039,45  RON
+[VEZI PROCEDURA]
+SCN1172171
+04.02.2026 17:02
+ASIGURAREA INFRASTRUCTURII PENTRU TRANSPORTUL VERDE PRIN REALIZAREA DE PISTE PENTRU BICICLETE ÎN COMUNA BALINȚ, JUDEȚUL TIMIȘ
 Tip procedura: Procedura simplificata
 Tipul contractului: Lucrari
 Stare procedura: In desfasurare
 Modalitate de desfasurare: ONLINE
 Modalitatea de atribuire: Contract de achizitii publice
-CPV: 45321000-3 - Lucrari de izolare termica (Rev.2)
-Autoritate contractanta: 3519020 - ORASUL INEU
-Data limita depunere: 26.02.2026 15:00
-5.123.158,01  RON
-[VEZI PROCEDURA]
-SCN1172325
-10.02.2026 16:25
-Servicii de proiectare, inclusiv asistență tehnică din partea proiectantului, pentru proiectul „REALIZAREA CAPACITĂŢII DE PRODUCŢIE A ENERGIEI TERMICE DIN ENERGIE GEOTERMALĂ ÎN COMUNA SĂLACEA, JUDEȚUL BIHOR”
-Tip procedura: Procedura simplificata
-Tipul contractului: Servicii
-Stare procedura: In desfasurare
-Modalitate de desfasurare: ONLINE
-Modalitatea de atribuire: Contract de achizitii publice
-CPV: 71322000-1 - Servicii de proiectare tehnica pentru constructia de lucrari publice (Rev.2)
-Autoritate contractanta: 4784300 - Comuna Salacea
-Data limita depunere: 03.03.2026 15:00
-597.802,15  RON
+CPV: 45233162-2 - Lucrari de constructii de piste de biciclete (Rev.2)
+Autoritate contractanta: 4357970 - Comuna Balint
+Data limita depunere: 19.02.2026 15:00
+1.711.606,15  RON
 [VEZI PROCEDURA]
 PAGINA 
-1 of 4
+1 of 5
 Se afiseaza
 select
-rezultate pe pagina dintr-un total de: 20
+rezultate pe pagina dintr-un total de: 21
 Sus

@@ -15,9 +15,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
-        with:
-          retry-on-exit-code: 128
-          retry-max-attempts: 3
       
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -43,15 +40,31 @@ jobs:
       - name: Run scraper
         env:
           CI: true
+          GH_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: python seap_scraper.py
       
       - name: Update Gist
+        if: always()
         env:
-          GH_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
           echo "=== seap_data.json content ==="
           cat seap_data.json
           echo ""
           echo "=== Updating Gist ==="
-          CONTENT=$(cat seap_data.json)
-          gh gist edit 916c4f36e09196cd4e83e8e3bafe947a -f seap_data.json seap_data.json
+          python -c "
+          import json, urllib.request, os
+          token = os.environ.get('GIST_TOKEN', '')
+          if not token:
+              print('[WARN] GIST_TOKEN not set, skipping Gist update')
+              exit(0)
+          data = open('seap_data.json','r').read()
+          payload = json.dumps({'files':{'seap_data.json':{'content':data}}})
+          req = urllib.request.Request(
+              'https://api.github.com/gists/916c4f36e09196cd4e83e8e3bafe947a',
+              data=payload.encode(), method='PATCH',
+              headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'}
+          )
+          resp = urllib.request.urlopen(req)
+          print(f'Gist updated: {resp.status}')
+          "
