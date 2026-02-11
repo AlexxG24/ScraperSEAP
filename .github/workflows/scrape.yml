@@ -1,0 +1,57 @@
+name: SEAP Scraper
+
+on:
+  schedule:
+    # Ruleaza la fiecare ora, luni-vineri, 8:00-18:00 (ora Romaniei = UTC+2/+3)
+    - cron: '0 6-16 * * 1-5'
+    # Rulare garantata o data pe zi la 19:00 (ora Romaniei) - backup final
+    - cron: '0 17 * * 1-5'
+  workflow_dispatch:  # Permite rulare manuala din GitHub
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          retry-on-exit-code: 128
+          retry-max-attempts: 3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      
+      - name: Install dependencies
+        run: |
+          pip install selenium webdriver-manager
+      
+      - name: Download latest data from Gist
+        run: |
+          echo "Downloading latest seap_data.json from Gist..."
+          curl -s -o seap_data.json "https://gist.githubusercontent.com/AlexxG24/916c4f36e09196cd4e83e8e3bafe947a/raw/seap_data.json?t=$(date +%s)" || echo '{"history":[],"totalAllTime":0}' > seap_data.json
+          echo "Current data:"
+          cat seap_data.json
+      
+      - name: Run scraper
+        env:
+          CI: true
+        run: python seap_scraper.py
+      
+      - name: Update Gist
+        env:
+          GH_TOKEN: ${{ secrets.GIST_TOKEN }}
+        run: |
+          echo "=== seap_data.json content ==="
+          cat seap_data.json
+          echo ""
+          echo "=== Updating Gist ==="
+          CONTENT=$(cat seap_data.json)
+          gh gist edit 916c4f36e09196cd4e83e8e3bafe947a -f seap_data.json seap_data.json

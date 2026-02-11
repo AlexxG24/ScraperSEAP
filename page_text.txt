@@ -1,0 +1,109 @@
+E - LICITATIE
+MENIU
+  INREGISTRARE / RECUPERARE ACCES IN SISTEM
+RO | EN
+Acasa Anunturi de initiere
+FILTRE
+Invitatie de participare (RFQ)
+Anunt de participare (CN)
+Anunt de participare simplificat (SCN)
+Anunt de concesionare (PC)
+Anunt de concurs de solutii (DC)
+Invitatie de depunere oferta la sistem de achizitii dinamic (RFD)
+NUMAR ANUNT
+DENUMIRE CONTRACT
+STARE CURENTA PROCEDURA
+select
+DATA PUBLICARE
+select
+select
+AUTORITATEA CONTRACTANTA
+select
+DOMENIU DE ACTIVITATE
+select
+FAZA PROCEDURA ONLINE
+select
+DATA LIMITA DEPUNERE
+select
+select
+MODALITATEA DE ATRIBUIRE
+select
+COD SAU DENUMIRE CPV
+select
+VALOARE TOTALA ESTIMATA
+Mai multe filtre
+Locul de executare
+FILTREAZA
+STERGE FILTRE
+ORDONEAZA DUPA: DATA PUBLICARE VALOARE TOTALA ESTIMATA (RON)
+Export
+NUMAR ANUNT
+DATA PUBLICARE
+DENUMIRE CONTRACT
+VALOARE ESTIMATA
+SCN1172120
+03.02.2026 11:17
+Executie lucrari in cadrul proiectului: „MODERNIZARE STRAZI, AMENAJARI URBANISTICE PRIN EXTINDERE PLATFORMA DRUM SI EXTINDERE RETELE DE UTILITATE PUBLICA (APA, CANALIZARE MENAJERA SI ILUMINAT PUBLIC STRADAL), COMUNA FLORESTI, JUDETUL CLUJ – FAZA II”
+Tip procedura: Procedura simplificata
+Tipul contractului: Lucrari
+Stare procedura: In desfasurare
+Modalitate de desfasurare: ONLINE
+Modalitatea de atribuire: Contract de achizitii publice
+CPV: 45233120-6 - Lucrari de constructii de drumuri (Rev.2)
+Autoritate contractanta: 4485391 - COMUNA FLORESTI
+Data limita depunere: 26.02.2026 15:00
+19.437.029,78  RON
+[VEZI PROCEDURA]
+SCN1172115
+03.02.2026 09:05
+Execuție lucrări de ,,EFICIENTIZARE ENERGETICĂ PENTRU CLĂDIRI DE APARTAMENTE DIN MUNICIPIUL CARANSEBEȘ – str. Splaiul Sebeșului bl.2 și bl.4”
+Tip procedura: Procedura simplificata
+Tipul contractului: Lucrari
+Stare procedura: In desfasurare
+Modalitate de desfasurare: ONLINE
+Modalitatea de atribuire: Contract de achizitii publice
+CPV: 45321000-3 - Lucrari de izolare termica (Rev.2)
+Autoritate contractanta: 3227947 - Municipiul Caransebes
+Data limita depunere: 23.02.2026 15:00
+5.477.565,24  RON
+[VEZI PROCEDURA]
+SCN1172112
+03.02.2026 08:41
+Construire locuințe sociale pentru persoane vârstnice, Comuna Semlac, județul Arad
+Tip procedura: Procedura simplificata
+Tipul contractului: Lucrari
+Stare procedura: In desfasurare
+Modalitate de desfasurare: ONLINE
+Modalitatea de atribuire: Contract de achizitii publice
+CPV: 45210000-2 - Lucrari de constructii de cladiri (Rev.2)
+Autoritate contractanta: 3518830 - COMUNA SEMLAC
+Data limita depunere: 18.02.2026 15:00
+1.561.252,74  RON
+[VEZI PROCEDURA]
+SCN1172111
+03.02.2026 08:36
+Execuția lucrărilor pentru obiectivul: ”IMBUNATATIREA INFRASTRUCTURII RUTIERE IN COMUNA LUNCA, JUDETUL BIHOR”
+Tip procedura: Procedura simplificata
+Tipul contractului: Lucrari
+Stare procedura: In desfasurare
+Modalitate de desfasurare: ONLINE
+Modalitatea de atribuire: Contract de achizitii publice
+CPV: 45233120-6 - Lucrari de constructii de drumuri (Rev.2)
+Autoritate contractanta: 4935186 - COMUNA LUNCA
+Data limita depunere: 20.02.2026 15:00
+4.492.225,44  RON
+[VEZI PROCEDURA]
+SCN1172110
+03.02.2026 08:34
+«„Extindere rețea publică de apă uzată în satul Martalogi, Comuna Hârsești, județul Argeș: Servicii de proiectare fazele Proiect Tehnic, Detalii de Execuție (PT+DE), Asistență Tehnică din partea proiectantului și Execuție lucrări”»
+Tip procedura: Procedura simplificata
+Tipul contractului: Lucrari
+Stare procedura: In desfasurare
+Modalitate de desfasurare: ONLINE
+Modalitatea de atribuire: Contract de achizitii publice
+CPV: 45232400-6 - Lucrari de constructii de canalizare de ape reziduale (Rev.2)
+Autoritate contractanta: 4122388 - COMUNA HARSESTI (PRIMARIA HARSESTI)
+Data limita depunere: 19.02.2026 15:00
+8.050.697,50  RON
+[VEZI PROCEDURA]
+Sus
