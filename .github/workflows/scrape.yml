@@ -43,6 +43,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: python seap_scraper.py
       
+      - name: Keepalive - prevent workflow disable after 60 days
+        uses: gautamkrishnar/keepalive-workflow@v2
+        with:
+          time_elapsed: 45
+      
       - name: Update Gist
         if: always()
         env:
