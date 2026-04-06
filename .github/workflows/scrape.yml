@@ -47,9 +47,22 @@ jobs:
         run: python seap_scraper.py
       
       - name: Keepalive - prevent workflow disable after 60 days
-        uses: gautamkrishnar/keepalive-workflow@v2
-        with:
-          time_elapsed: 45
+        run: |
+          LAST_COMMIT=$(git log -1 --format=%ct)
+          NOW=$(date +%s)
+          DAYS_SINCE=$(( (NOW - LAST_COMMIT) / 86400 ))
+          echo "Days since last commit: $DAYS_SINCE"
+          if [ "$DAYS_SINCE" -ge 45 ]; then
+            echo "Keepalive: making dummy commit to prevent workflow disable"
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            date -u > .keepalive
+            git add .keepalive
+            git commit -m "chore: keepalive commit [skip ci]"
+            git push
+          else
+            echo "No keepalive needed yet"
+          fi
       
       - name: Update Gist
         if: always()
